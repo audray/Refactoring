@@ -8,6 +8,9 @@ class Customer {
   private String _name;
   private Vector _rentals = new Vector();
   private String result;
+  
+  private double amount;
+  private int frequentRenterPoints;
 
   public Customer( String name ) {
     _name = name;
@@ -21,39 +24,27 @@ class Customer {
     return _name;
   }
   
-  public double getAmount(){
-	  double totalAmount = 0;
+  
+  public void calculate(){
+	  
+	  this.amount = 0;
+	  this.frequentRenterPoints = 0;
 	  double thisAmount;
 	  
 	  Enumeration rentals = _rentals.elements();
 	  
-	  while(rentals.hasMoreElements()){
-		  Rental each = (Rental) rentals.nextElement();
-		  
-		  thisAmount = each.getAmount();
+	  while( rentals.hasMoreElements() ) {
+	      Rental each = (Rental) rentals.nextElement();
+	      thisAmount = each.getAmount();
 	      
 	      //show figures for this rental
 	      this.result += "\t" + each.getMovie().getTitle() + "\t"
 	                + String.valueOf( thisAmount ) + "\n";
-	      totalAmount += thisAmount;
 	      
-	  }
-	  
-	return totalAmount;
-  }
-
-  public int getFrequent(){
-	  int frequentRenterPoints = 0;
-	  Enumeration rentals = _rentals.elements();
-	  
-	  while( rentals.hasMoreElements() ) {
-	      Rental each = (Rental) rentals.nextElement();
-
-	      frequentRenterPoints += each.getFrequentPoints();
+	      this.amount += thisAmount;
+	      this.frequentRenterPoints += each.getFrequentPoints();
 
 	    }
-	  
-	return frequentRenterPoints;
   }
   
   public String statement() {
@@ -61,13 +52,11 @@ class Customer {
     
     this.result = "Rental Record for " + getName() + "\n";
     
-    double totalAmount = getAmount();
-    int frequentRenterPoints = getFrequent();
-    
+    calculate();
     
     //add footer lines
-    this.result += "Amount owed is " + String.valueOf( totalAmount ) + "\n";
-    this.result += "You earned " + String.valueOf( frequentRenterPoints )
+    this.result += "Amount owed is " + String.valueOf( this.amount ) + "\n";
+    this.result += "You earned " + String.valueOf( this.frequentRenterPoints )
               + " frequent renter points";
     return this.result;
   }
