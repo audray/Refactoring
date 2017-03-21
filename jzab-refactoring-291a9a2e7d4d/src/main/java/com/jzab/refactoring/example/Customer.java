@@ -37,9 +37,7 @@ class Customer {
 	      Rental each = (Rental) rentals.nextElement();
 	      thisAmount = each.getAmount();
 	      
-	      //show figures for this rental
-	      this.result += "\t" + each.getMovie().getTitle() + "\t"
-	                + String.valueOf( thisAmount ) + "\n";
+	      //show figures for this rent
 	      
 	      this.amount += thisAmount;
 	      this.frequentRenterPoints += each.getFrequentPoints();
@@ -51,7 +49,15 @@ class Customer {
     
     
     this.result = "Rental Record for " + getName() + "\n";
-    
+    Enumeration rentals = _rentals.elements();
+	  
+	  while( rentals.hasMoreElements() ) {
+	      Rental each = (Rental) rentals.nextElement();
+	      
+	      //show figures for this rental
+	      this.result += "\t" + each.getMovie().getTitle() + "\t"
+	                + String.valueOf( each.getAmount() ) + "\n";
+	    }
     calculate();
     
     //add footer lines
