@@ -17,7 +17,7 @@ public class Main {
     rental = new Rental( movie, 5 );
     customer.addRental( rental );
     
-    String statement = customer.statement();
+    String statement = customer.statement("HTML");
 
     System.out.println( statement );
 

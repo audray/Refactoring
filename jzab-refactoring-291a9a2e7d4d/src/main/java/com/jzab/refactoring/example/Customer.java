@@ -45,25 +45,32 @@ class Customer {
 	    }
   }
   
-  public String statement() {
-    
-    
-    this.result = "Rental Record for " + getName() + "\n";
-    Enumeration rentals = _rentals.elements();
+  public String statement(String type) {
 	  
-	  while( rentals.hasMoreElements() ) {
-	      Rental each = (Rental) rentals.nextElement();
-	      
-	      //show figures for this rental
-	      this.result += "\t" + each.getMovie().getTitle() + "\t"
-	                + String.valueOf( each.getAmount() ) + "\n";
-	    }
-    calculate();
+	 calculate();
+	 
+	 this.result = "Rental Record for " + getName() + "\n";
+	    Enumeration rentals = _rentals.elements();
+		  
+		  while( rentals.hasMoreElements() ) {
+		      Rental each = (Rental) rentals.nextElement();
+		      
+		      //show figures for this rental
+		      this.result += "\t" + each.getMovie().getTitle() + "\t"
+		                + String.valueOf( each.getAmount() ) + "\n";
+		    }
+	    
+	    //add footer lines
+	    this.result += "Amount owed is " + String.valueOf( this.amount ) + "\n";
+	    this.result += "You earned " + String.valueOf( this.frequentRenterPoints )
+	              + " frequent renter points";
+	 
+	 if(type.equals("HTML")){
+		 Writer w = new Writer(getName() +".html", this.result);
+		 this.result = "Listo";
+	 }
     
-    //add footer lines
-    this.result += "Amount owed is " + String.valueOf( this.amount ) + "\n";
-    this.result += "You earned " + String.valueOf( this.frequentRenterPoints )
-              + " frequent renter points";
+    
     return this.result;
   }
 
