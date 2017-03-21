@@ -7,7 +7,6 @@ class Customer {
 
   private String _name;
   private Vector _rentals = new Vector();
-  private String result;
   
   private double amount;
   private int frequentRenterPoints;
@@ -45,33 +44,27 @@ class Customer {
 	    }
   }
   
-  public String statement(String type) {
+  public String statement() {
 	  
 	 calculate();
 	 
-	 this.result = "Rental Record for " + getName() + "\n";
+	 String result = "Rental Record for " + getName() + "\n";
 	    Enumeration rentals = _rentals.elements();
 		  
 		  while( rentals.hasMoreElements() ) {
 		      Rental each = (Rental) rentals.nextElement();
 		      
 		      //show figures for this rental
-		      this.result += "\t" + each.getMovie().getTitle() + "\t"
+		      result += "\t" + each.getMovie().getTitle() + "\t"
 		                + String.valueOf( each.getAmount() ) + "\n";
 		    }
 	    
 	    //add footer lines
-	    this.result += "Amount owed is " + String.valueOf( this.amount ) + "\n";
-	    this.result += "You earned " + String.valueOf( this.frequentRenterPoints )
+	    result += "Amount owed is " + String.valueOf( this.amount ) + "\n";
+	    result += "You earned " + String.valueOf( this.frequentRenterPoints )
 	              + " frequent renter points";
 	 
-	 if(type.equals("HTML")){
-		 Writer w = new Writer(getName() +".html", this.result);
-		 this.result = "Listo";
-	 }
-    
-    
-    return this.result;
+    return result;
   }
 
 
